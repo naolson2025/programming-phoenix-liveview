@@ -147,6 +147,7 @@ defmodule ProgrammingPhoenixLiveviewWeb.UserAuth do
     {:cont, mount_current_user(socket, session)}
   end
 
+  # :ensured_authenticated is the activity we want to match
   def on_mount(:ensure_authenticated, _params, session, socket) do
     socket = mount_current_user(socket, session)
 

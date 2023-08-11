@@ -65,10 +65,22 @@ defmodule ProgrammingPhoenixLiveviewWeb.Router do
     pipe_through [:browser, :require_authenticated_user]
 
     live_session :require_authenticated_user,
+      # specify the root layout for all live routes in this scope
+      # (this is the default, so you can omit it if you want)
+      # root_layout: {ProgrammingPhoenixLiveviewWeb.Components.Layouts, :root},
       on_mount: [{ProgrammingPhoenixLiveviewWeb.UserAuth, :ensure_authenticated}] do
       live "/users/settings", UserSettingsLive, :edit
       live "/users/settings/confirm_email/:token", UserSettingsLive, :confirm_email
       live "/guess", WrongLive
+
+      # add all product endpoints in the same sessions so we can
+      # route between them without a page refresh
+      live "/products", ProductLive.Index, :index
+      live "/products/new", ProductLive.Index, :new
+      live "/products/:id/edit", ProductLive.Index, :edit
+
+      live "/products/:id", ProductLive.Show, :show
+      live "/products/:id/show/edit", ProductLive.Show, :edit
     end
   end
 
