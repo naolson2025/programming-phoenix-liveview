@@ -33,7 +33,10 @@ defmodule ProgrammingPhoenixLiveviewWeb.ProductLive.Index do
   end
 
   @impl true
-  def handle_info({ProgrammingPhoenixLiveviewWeb.ProductLive.FormComponent, {:saved, product}}, socket) do
+  def handle_info(
+        {ProgrammingPhoenixLiveviewWeb.ProductLive.FormComponent, {:saved, product}},
+        socket
+      ) do
     {:noreply, stream_insert(socket, :products, product)}
   end
 
