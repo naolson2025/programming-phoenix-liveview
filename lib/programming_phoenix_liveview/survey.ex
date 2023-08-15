@@ -7,6 +7,7 @@ defmodule ProgrammingPhoenixLiveview.Survey do
   alias ProgrammingPhoenixLiveview.Repo
 
   alias ProgrammingPhoenixLiveview.Survey.Demographic
+  alias ProgrammingPhoenixLiveview.Survey.Rating
 
   @doc """
   Returns the list of demographics.
@@ -102,7 +103,10 @@ defmodule ProgrammingPhoenixLiveview.Survey do
     Demographic.changeset(demographic, attrs)
   end
 
-  alias ProgrammingPhoenixLiveview.Survey.Rating
+  def get_demographic_by_user(user) do
+    Demographic.Query.for_user(user)
+    |> Repo.one()
+  end
 
   @doc """
   Returns the list of ratings.
