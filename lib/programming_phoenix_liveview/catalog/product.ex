@@ -1,6 +1,7 @@
 defmodule ProgrammingPhoenixLiveview.Catalog.Product do
   use Ecto.Schema
   import Ecto.Changeset
+  alias ProgrammingPhoenixLiveview.Survey.Rating
 
   schema "products" do
     field :name, :string
@@ -10,6 +11,7 @@ defmodule ProgrammingPhoenixLiveview.Catalog.Product do
     field :image_upload, :string
 
     timestamps()
+    has_many :ratings, Rating
   end
 
   @doc false

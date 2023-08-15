@@ -3,6 +3,7 @@ defmodule ProgrammingPhoenixLiveview.SurveyFixtures do
   This module defines test helpers for creating
   entities via the `ProgrammingPhoenixLiveview.Survey` context.
   """
+  import ProgrammingPhoenixLiveview.{AccountsFixtures, CatalogFixtures}
 
   @doc """
   Generate a demographic.
@@ -11,8 +12,9 @@ defmodule ProgrammingPhoenixLiveview.SurveyFixtures do
     {:ok, demographic} =
       attrs
       |> Enum.into(%{
-        gender: "some gender",
-        year_of_birth: 42
+        gender: "female",
+        year_of_birth: 2000,
+        user_id: user_fixture().id
       })
       |> ProgrammingPhoenixLiveview.Survey.create_demographic()
 
@@ -26,7 +28,9 @@ defmodule ProgrammingPhoenixLiveview.SurveyFixtures do
     {:ok, rating} =
       attrs
       |> Enum.into(%{
-        stars: 42
+        stars: 4,
+        user_id: user_fixture().id,
+        product_id: product_fixture().id
       })
       |> ProgrammingPhoenixLiveview.Survey.create_rating()
 
