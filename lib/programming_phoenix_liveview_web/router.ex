@@ -73,6 +73,7 @@ defmodule ProgrammingPhoenixLiveviewWeb.Router do
       live "/users/settings/confirm_email/:token", UserSettingsLive, :confirm_email
       live "/guess", WrongLive
       live "/promo", PromoLive
+      live "/survey", SurveyLive, :index
 
       # add all product endpoints in the same sessions so we can
       # route between them without a page refresh
