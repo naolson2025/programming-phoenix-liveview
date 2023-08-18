@@ -20,4 +20,24 @@ defmodule ProgrammingPhoenixLiveviewWeb.DemographicLive.Form do
   defp assign_changeset(%{assigns: %{demographic: demographic}} = socket) do
     assign(socket, :changeset, Survey.change_demographic(demographic))
   end
+
+  def handle_event("save", params, socket) do
+    params = params_with_user_id(params, socket)
+    {:noreply, save_demographic(socket, params)}
+  end
+
+  def params_with_user_id(params, %{assigns: %{current_user: current_user}}) do
+    params
+    |> Map.put("user_id", current_user.id)
+  end
+
+  defp save_demographic(socket, params) do
+    case Survey.create_demographic(params) do
+      {:ok, demographic} ->
+        send(self(), {:created_demographic, demographic})
+        socket
+      {:error, %Ecto.Changeset{} = changeset} ->
+        assign(socket, changeset: changeset)
+    end
+  end
 end

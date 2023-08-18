@@ -3,6 +3,7 @@
     :let={f}
     for={@changeset}
     phx-submit="save"
+    phx-target={@myself}
     id={@id}
   >
     <.input
@@ -10,16 +11,22 @@
       type="select"
       label="Gender"
       options={["female", "male"]}
+      name="gender"
+      value=""
     />
     <.input
       field={{f, :year_of_birth}}
       type="select"
       label="Year of birth"
       options={Enum.reverse(1920..2023)}
+      name="year_of_birth"
+      value=""
     />
     <.input
       field={{f, :user_id}}
       type="hidden"
+      name="user_id"
+      value=""
     />
     <:actions>
       <.button phx-disable-with="Saving...">Save</.button>
