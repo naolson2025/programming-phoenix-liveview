@@ -31,6 +31,8 @@ defmodule ProgrammingPhoenixLiveviewWeb.DemographicLive.Form do
     |> Map.put("user_id", current_user.id)
   end
 
+  # with send() we send a message to the parent live view
+  # which is survey_live.ex
   defp save_demographic(socket, params) do
     case Survey.create_demographic(params) do
       {:ok, demographic} ->
