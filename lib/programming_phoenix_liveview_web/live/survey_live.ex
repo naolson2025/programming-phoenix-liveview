@@ -1,11 +1,18 @@
 defmodule ProgrammingPhoenixLiveviewWeb.SurveyLive do
+  alias ProgrammingPhoenixLiveview.Catalog
   alias ProgrammingPhoenixLiveview.Survey
   use ProgrammingPhoenixLiveviewWeb, :live_view
   alias __MODULE__.Component
   alias ProgrammingPhoenixLiveviewWeb.DemographicLive
+  alias ProgrammingPhoenixLiveviewWeb.RatingLive
 
   def mount(_params, _session, socket) do
-    {:ok, socket |> assign_demographic}
+    {
+      :ok,
+      socket
+      |> assign_demographic
+      |> assign_products
+    }
   end
 
   defp assign_demographic(%{assigns: %{current_user: current_user}} = socket) do
@@ -22,5 +29,13 @@ defmodule ProgrammingPhoenixLiveviewWeb.SurveyLive do
     socket
     |> put_flash(:info, "Demographic information saved")
     |> assign(:demographic, demographic)
+  end
+
+  def assign_products(%{assigns: %{current_user: current_user}} = socket) do
+    assign(socket, :products, list_products(current_user))
+  end
+
+  defp list_products(user) do
+    Catalog.list_products_with_user_ratings(user)
   end
 end
