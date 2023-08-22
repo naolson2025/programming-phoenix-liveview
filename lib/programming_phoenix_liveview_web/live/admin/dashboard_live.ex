@@ -5,6 +5,7 @@ defmodule ProgrammingPhoenixLiveviewWeb.Admin.DashboardLive do
     {
       :ok,
       socket
+      # assign one key value pair to the socket
       |> assign(:survey_results_component_id, "survey-results")
     }
   end

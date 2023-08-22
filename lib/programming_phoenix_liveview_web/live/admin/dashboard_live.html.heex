@@ -1,3 +1,10 @@
 <section class="row">
   <h1 class="font-heavy text-3xl">Admin Dashboard</h1>
 </section>
+<%!-- The variables below are accessible --%>
+<%!-- from the socket.assigns that renders this template --%>
+<%!-- which is dashboard_live.ex --%>
+<.live_component
+  module={ProgrammingPhoenixLiveviewWeb.Admin.SurveyResultsLive}
+  id={@survey_results_component_id}
+/>
