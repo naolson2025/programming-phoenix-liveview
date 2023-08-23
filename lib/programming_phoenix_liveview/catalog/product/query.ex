@@ -2,6 +2,8 @@ defmodule ProgrammingPhoenixLiveview.Catalog.Product.Query do
   import Ecto.Query
   alias ProgrammingPhoenixLiveview.Catalog.Product
   alias ProgrammingPhoenixLiveview.Survey.Rating
+  alias ProgrammingPhoenixLiveview.Accounts.User
+  alias ProgrammingPhoenixLiveview.Survey.Demographic
 
   def base, do: Product
 
@@ -32,5 +34,54 @@ defmodule ProgrammingPhoenixLiveview.Catalog.Product.Query do
     query
     |> group_by([p], p.id)
     |> select([p, r], {p.name, fragment("?::float", avg(r.stars))})
+  end
+
+  def join_users(query \\ base()) do
+    query
+    |> join(:left, [p, r], u in User, on: r.user_id == u.id)
+  end
+
+  def join_demographics(query \\ base()) do
+    query
+    |> join(:left, [p, r, u, d], d in Demographic, on: d.user_id == u.id)
+  end
+
+  def filter_by_age_group(query \\ base(), filter) do
+    query
+    |> apply_age_group_filter(filter)
+  end
+
+  defp apply_age_group_filter(query, "18 and under") do
+    birth_year = DateTime.utc_now().year - 18
+
+    query
+    |> where([p, r, u, d], d.year_of_birth >= ^birth_year)
+  end
+
+  defp apply_age_group_filter(query, "19 to 25") do
+    birth_year_max = DateTime.utc_now().year - 19
+    birth_year_min = DateTime.utc_now().year - 25
+
+    query
+    |> where([p, r, u, d], d.year_of_birth >= ^birth_year_min and d.year_of_birth <= ^birth_year_max)
+  end
+
+  defp apply_age_group_filter(query, "26 to 35") do
+    birth_year_max = DateTime.utc_now().year - 26
+    birth_year_min = DateTime.utc_now().year - 35
+
+    query
+    |> where([p, r, u, d], d.year_of_birth >= ^birth_year_min and d.year_of_birth <= ^birth_year_max)
+  end
+
+  defp apply_age_group_filter(query, "36 and up") do
+    birth_year = DateTime.utc_now().year - 36
+
+    query
+    |> where([p, r, u, d], d.year_of_birth <= ^birth_year)
+  end
+
+  defp apply_age_group_filter(query, _filter) do
+    query
   end
 end
