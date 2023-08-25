@@ -3,8 +3,9 @@ defmodule ProgrammingPhoenixLiveviewWeb.SurveyLive do
   alias ProgrammingPhoenixLiveview.Survey
   use ProgrammingPhoenixLiveviewWeb, :live_view
   alias __MODULE__.Component
-  alias ProgrammingPhoenixLiveviewWeb.DemographicLive
-  alias ProgrammingPhoenixLiveviewWeb.RatingLive
+  alias ProgrammingPhoenixLiveviewWeb.{DemographicLive, RatingLive, Endpoint}
+
+  @survey_results_topic "survey_results"
 
   def mount(_params, _session, socket) do
     {
@@ -44,10 +45,17 @@ defmodule ProgrammingPhoenixLiveviewWeb.SurveyLive do
   end
 
   def handle_rating_created(
-    %{assigns: %{products: products}} = socket,
-    updated_product,
-    product_index
-  ) do
+        %{assigns: %{products: products}} = socket,
+        updated_product,
+        product_index
+      ) do
+    # emit the event to the survey_results topic
+    Endpoint.broadcast(
+      @survey_results_topic,
+      "rating_created",
+      %{}
+    )
+
     socket
     |> put_flash(:info, "Rating saved")
     |> assign(:products, List.replace_at(products, product_index, updated_product))
