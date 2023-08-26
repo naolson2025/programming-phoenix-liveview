@@ -16,6 +16,7 @@ defmodule ProgrammingPhoenixLiveview.Application do
       {Phoenix.PubSub, name: ProgrammingPhoenixLiveview.PubSub},
       # Start Finch
       {Finch, name: ProgrammingPhoenixLiveview.Finch},
+      ProgrammingPhoenixLiveviewWeb.Presence, # added presence to our app start up
       # Start the Endpoint (http/https)
       ProgrammingPhoenixLiveviewWeb.Endpoint
       # Start a worker by calling: ProgrammingPhoenixLiveview.Worker.start_link(arg)
