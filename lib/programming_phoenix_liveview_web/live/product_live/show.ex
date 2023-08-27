@@ -2,6 +2,7 @@ defmodule ProgrammingPhoenixLiveviewWeb.ProductLive.Show do
   use ProgrammingPhoenixLiveviewWeb, :live_view
 
   alias ProgrammingPhoenixLiveview.Catalog
+  alias ProgrammingPhoenixLiveviewWeb.Presence
 
   @impl true
   def mount(_params, _session, socket) do
