@@ -42,7 +42,7 @@ defmodule ProgrammingPhoenixLiveviewWeb.Admin.SurveyResultsLive do
   defp x_axis, do: "Products"
   defp y_axis, do: "Stars"
 
-  defp assign_products_with_average_ratings(
+  def assign_products_with_average_ratings(
          %{assigns: %{age_group_filter: age_group_filter}} = socket
        ) do
     socket
@@ -52,7 +52,7 @@ defmodule ProgrammingPhoenixLiveviewWeb.Admin.SurveyResultsLive do
     )
   end
 
-  defp get_products_with_average_ratings(filter) do
+  def get_products_with_average_ratings(filter) do
     case Catalog.products_with_average_ratings(filter) do
       [] -> Catalog.products_with_zero_ratings()
       products -> products
