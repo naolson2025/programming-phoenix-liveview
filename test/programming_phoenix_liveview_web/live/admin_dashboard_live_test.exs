@@ -43,7 +43,7 @@ defmodule ProgrammingPhoenixLiveviewWeb.AdminDashboardLiveTest do
     user
   end
 
-  defp demographic_fixture(user, attrs \\ @create_demographic_attrs) do
+  defp demographic_fixture(user, attrs) do
     attrs =
       attrs
       |> Map.merge(%{user_id: user.id})
@@ -96,12 +96,27 @@ defmodule ProgrammingPhoenixLiveviewWeb.AdminDashboardLiveTest do
       {:ok, view, _html} = live(conn, "/admin/dashboard")
       params = %{"age_group_filter" => "18 and under"}
 
-      html =
+      # html =
         view
         # |> open_browser() # will show html of rendered live view in browser
         |> element("#age-group-form") # select the element
         # simulate user interaction of clicking "18 and under"
         |> render_change(params) =~ "<title>2.00</title>"
+    end
+
+    # Example of testing pubsub messages
+    test "it updates to display newly created ratings", %{conn: conn, product: product} do
+      {:ok, view, html} = live(conn, "/admin/dashboard")
+      assert html =~ "<title>2.50</title>"
+      user3 = user_fixture(@create_user3_attrs)
+      create_demographic(user3)
+      create_rating(user3, product, 3)
+
+      # send a message to the live view
+      send(view.pid, %{event: "rating_created"})
+      # wait for the live view to update
+      :timer.sleep(2)
+      assert render(view) =~ "<title>2.67</title>"
     end
   end
 end
