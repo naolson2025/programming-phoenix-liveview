@@ -74,6 +74,7 @@ defmodule ProgrammingPhoenixLiveviewWeb.Router do
       live "/guess", WrongLive
       live "/promo", PromoLive
       live "/survey", SurveyLive, :index
+      live "/game/:puzzle", GameLive, :index
 
       # add all product endpoints in the same sessions so we can
       # route between them without a page refresh

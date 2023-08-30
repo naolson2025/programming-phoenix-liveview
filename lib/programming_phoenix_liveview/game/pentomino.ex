@@ -1,4 +1,6 @@
 defmodule ProgrammingPhoenixLiveview.Game.Pentomino do
+  alias ProgrammingPhoenixLiveview.Game.Shape
+  
   @names [:i, :l, :y, :n, :p, :w, :u, :v, :s, :f, :x, :t]
   @default_location {8, 8}
   defstruct [
@@ -21,7 +23,7 @@ defmodule ProgrammingPhoenixLiveview.Game.Pentomino do
   def up(p) do
     %{ p | location: Point.move(p.location, {0, -1})}
   end
-  
+
   def down(p) do
     %{ p | location: Point.move(p.location, {0, 1})}
   end
