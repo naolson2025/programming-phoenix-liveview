@@ -17,6 +17,7 @@ defmodule ProgrammingPhoenixLiveviewWeb.Router do
     plug :accepts, ["json"]
   end
 
+  # This scope applies to all routes because all routes have "/"
   scope "/", ProgrammingPhoenixLiveviewWeb do
     pipe_through :browser
 
