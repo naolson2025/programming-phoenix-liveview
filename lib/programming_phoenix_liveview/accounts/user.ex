@@ -3,6 +3,7 @@ defmodule ProgrammingPhoenixLiveview.Accounts.User do
   import Ecto.Changeset
 
   schema "users" do
+    field :username, :string
     field :email, :string
     field :password, :string, virtual: true, redact: true
     field :hashed_password, :string, redact: true
@@ -36,9 +37,18 @@ defmodule ProgrammingPhoenixLiveview.Accounts.User do
   """
   def registration_changeset(user, attrs, opts \\ []) do
     user
-    |> cast(attrs, [:email, :password])
+    |> cast(attrs, [:username, :email, :password])
     |> validate_email(opts)
     |> validate_password(opts)
+    |> validate_username()
+  end
+
+  defp validate_username(changeset) do
+    changeset
+    |> validate_length(:username, min: 1, max: 32)
+    |> validate_format(:username, ~r/^[a-z0-9_]+$/i, message: "can only contain letters, numbers, and underscores")
+    |> unsafe_validate_unique(:username, ProgrammingPhoenixLiveview.Repo)
+    |> unique_constraint(:username)
   end
 
   defp validate_email(changeset, opts) do

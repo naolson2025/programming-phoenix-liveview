@@ -5,6 +5,7 @@ alias ProgrammingPhoenixLiveview.{Repo, Accounts, Survey}
 
 for i <- 1..43 do
   Accounts.register_user(%{
+    username: "user#{i}_username",
     email: "user#{i}@example.com",
     password: "passwordpassword"
   }) |> IO.inspect

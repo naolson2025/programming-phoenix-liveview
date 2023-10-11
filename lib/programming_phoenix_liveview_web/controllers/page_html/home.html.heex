@@ -1,7 +1,7 @@
 <div class="container px-6 py-6">
   <div class="flex items-center gap-4 font-semibold leading-6 text-zinc-900">
     <%= if @current_user do %>
-      <b><%= @current_user.email %></b>
+      <b><%= @current_user.username %></b>
       <.link href={~p"/products"}>Products</.link>
       <.link href={~p"/survey"}>Survey</.link>
       <.link href={~p"/users/settings"}>Settings</.link>
