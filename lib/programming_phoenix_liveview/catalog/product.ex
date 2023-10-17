@@ -22,4 +22,12 @@ defmodule ProgrammingPhoenixLiveview.Catalog.Product do
     |> unique_constraint(:sku)
     |> validate_number(:unit_price, greater_than: 0)
   end
+
+  def changeset2(product, new_price) do
+    current_price = get_in(product, [Access.key!(:unit_price)])
+
+    product
+    |> cast(%{"unit_price" => new_price}, [:unit_price])
+    |> validate_number(:unit_price, less_than: current_price)
+  end
 end

@@ -121,4 +121,10 @@ defmodule ProgrammingPhoenixLiveview.Catalog do
   def change_product(%Product{} = product, attrs \\ %{}) do
     Product.changeset(product, attrs)
   end
+
+  def markdown_product(%Product{} = product, new_price) do
+    product
+    |> Product.changeset2(new_price)
+    |> Repo.update()
+  end
 end
