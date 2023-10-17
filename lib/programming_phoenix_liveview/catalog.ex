@@ -124,7 +124,7 @@ defmodule ProgrammingPhoenixLiveview.Catalog do
 
   def markdown_product(%Product{} = product, new_price) do
     product
-    |> Product.changeset(%{"unit_price" => new_price})
+    |> Product.changeset(%{"new_price" => new_price})
     |> Repo.update()
   end
 end

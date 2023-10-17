@@ -14,11 +14,12 @@ defmodule ProgrammingPhoenixLiveview.Catalog.Product do
     has_many :ratings, Rating
   end
 
-  def changeset(product, %{"unit_price" => _unit_price} = attrs) do
-    current_price = get_in(product, [Access.key!(:unit_price)])
+  def changeset(product, %{"new_price" => new_price}) do
+    # current_price = get_in(product, [Access.key!(:unit_price)])
+    current_price = Map.get(product, :unit_price)
 
     product
-    |> cast(attrs, [:unit_price])
+    |> cast(%{"unit_price" => new_price}, [:unit_price])
     |> validate_number(:unit_price, less_than: current_price)
   end
 
