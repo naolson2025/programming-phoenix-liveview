@@ -16,7 +16,8 @@ defmodule ProgrammingPhoenixLiveview.Catalog.Product do
 
   def changeset(product, %{"new_price" => new_price}) do
     # current_price = get_in(product, [Access.key!(:unit_price)])
-    current_price = Map.get(product, :unit_price)
+    # current_price = Map.get(product, :unit_price)
+    current_price = product.unit_price
 
     product
     |> cast(%{"unit_price" => new_price}, [:unit_price])
