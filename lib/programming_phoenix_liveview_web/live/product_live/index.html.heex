@@ -1,3 +1,5 @@
+<h1 class="text-2xl font-bold"><%= @greeting %></h1>
+
 <.header>
   Listing Products
   <:actions>
@@ -31,6 +33,10 @@
     </.link>
   </:action>
 </.table>
+
+<pre>
+  <%= inspect assigns, pretty: true %>
+</pre>
 
 <.modal
   :if={@live_action in [:new, :edit]}
